@@ -154,7 +154,7 @@ const GamePage = () => {
           </article>
         </div>
       ) : (
-        <div className="flex w-full flex-col-reverse md:flex-row">
+        <div className="flex w-full flex-col-reverse md:flex-row max-w-[1025px]">
           <article className="h-full w-full flex flex-col justify-start items-start gap-8 md:gap-5 container-calc max-w-[740px]">
             <div className="w-full h-full flex justify-center items-center gap-3 max-w-[740px]">
               <SkeletonLoader width="100%" height="20px" />

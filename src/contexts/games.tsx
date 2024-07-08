@@ -78,21 +78,21 @@ export const GameProvider: React.FC<IGameProviderProps> = ({ children }) => {
           );
 
         if (filteredGamesByPlatform && filteredGamesByPlatform === "windows") {
-          const filteredGames =
-            data &&
-            data.filter((game: IGame) =>
+          const filteredGamesFromWord =
+            filteredGames &&
+            filteredGames.filter((game: IGame) =>
               game.platform.toLowerCase().includes(filteredGamesByPlatform)
             );
-          return setFilteredGames(filteredGames);
+          return setFilteredGames(filteredGamesFromWord);
         }
 
         if (filteredGamesByPlatform && filteredGamesByPlatform === "browser") {
-          const filteredGames =
-            data &&
-            data.filter((game: IGame) =>
+          const filteredGamesFromWord =
+            filteredGames &&
+            filteredGames.filter((game: IGame) =>
               game.platform.toLowerCase().includes(filteredGamesByPlatform)
             );
-          return setFilteredGames(filteredGames);
+          return setFilteredGames(filteredGamesFromWord);
         }
         setFilteredGames(filteredGames);
       } catch (error) {

@@ -26,7 +26,7 @@ const Games: React.FC = () => {
     useGames();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 21;
+  const pageSize = 20;
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -47,18 +47,22 @@ const Games: React.FC = () => {
       window.scrollTo({ top: 0 });
     }
   };
+  const width = window.innerWidth < 1706 ? 3 : 4;
 
   const handleScroll = () => {
     gameRefs.current.forEach((ref, index) => {
-      if (ref) {
+      console.log(width);
+      if (ref && index >= width) {
         const top = ref.getBoundingClientRect().top;
-        const isVisible = top >= 0 && top <= window.innerHeight - 100;
+        const isVisible = top >= 0 && top <= window.innerHeight - 350;
         if (isVisible) {
           ref.classList.add("animate-fade-up");
         }
       }
     });
   };
+
+  console.log(width);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -107,8 +111,8 @@ const Games: React.FC = () => {
 
       <div className="w-full h-full flex flex-wrap justify-center items-center gap-5">
         {filteredGames === null ? (
-          Array.from({ length: 6 }).map((_, index) => (
-            <SkeletonLoader key={index} width="300px" height="280px" />
+          Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonLoader key={index} width="340px" height="280px" />
           ))
         ) : filteredGames && filteredGames.length === 0 ? (
           <Spinner />
@@ -123,8 +127,8 @@ const Games: React.FC = () => {
               }}
               onClick={() => handleClick(game.id)}
               key={game.id}
-              className={`w-full h-full max-w-[300px] 2xl:max-w-[350px] ${
-                index < currentPage * pageSize ? "opacity-0" : ""
+              className={`w-full h-full max-w-[300px] xl:max-w-[340px] ${
+                index >= width ? "opacity-0" : ""
               }`}
             >
               <Game
@@ -145,7 +149,7 @@ const Games: React.FC = () => {
         )}
       </div>
       {filteredGames && filteredGames.length > pageSize && (
-        <div className="flex justify-center gap-2 mt-4 bg-light_grey p-4 rounded-md 2xl:w-full 2xl:max-w-[300px] mx-auto">
+        <div className="flex w-full justify-center gap-2 mt-4 bg-light_grey p-4 rounded-md  mx-auto">
           <button
             className="px-3 py-1 rounded bg-dark_grey hover:bg-light_detail hover:text-white"
             onClick={() => handlePageChange(currentPage - 1)}

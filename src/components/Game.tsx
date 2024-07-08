@@ -15,13 +15,13 @@ const Game = ({
   return (
     <div
       key={id}
-      className="w-full h-full flex flex-col justify-center items-center max-w-[300px] 2xl:max-w-[350px] bg-light_grey rounded-md cursor-pointer"
+      className="w-full h-full flex flex-col justify-center items-center max-w-[300px] xl:max-w-[340px] bg-light_grey rounded-md cursor-pointer"
     >
       <Image
         width="300"
         height="300"
         src={thumbnail}
-        className="w-full h-[170px] max-w-[300px] rounded-t-md 2xl:max-w-[350px] 2xl:h-[210px]"
+        className="w-full h-[170px] max-w-[300px] rounded-t-md xl:max-w-[340px] xl:h-[220px]"
         alt="title"
       />
       <div className="w-full h-full flex flex-col justify-center items-center p-4 gap-3">
