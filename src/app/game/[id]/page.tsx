@@ -3,17 +3,27 @@
 import { useGames } from "@/contexts/games";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { useEffect } from "react";
-import Spinner from "@/components/Spinner";
+import { useEffect, useState } from "react";
 import { platformGenre } from "@/utils/genre";
 import { platformImage } from "@/utils/platform";
 import SkeletonLoader from "@/components/Skeleton";
 import Carousel from "@/components/Carousel";
+import { usePathname } from "next/navigation";
 
 const GamePage = () => {
   const { game, setGame, fetchGameById } = useGames();
   const params = useParams();
   const { id } = params;
+  const path = usePathname();
+
+  const [copy, setCopy] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setCopy(false);
+    }, 3000);
+  }, [copy]);
+
+  console.log(copy);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -25,6 +35,16 @@ const GamePage = () => {
       setGame(null);
     };
   }, [id, setGame, fetchGameById]);
+
+  const handleCopy = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText("https://free-games-jsm.vercel.app" + path)
+        .then(() => {
+          setCopy(true);
+        });
+    }
+  };
 
   return (
     <section className="w-full h-full flex flex-col justify-evenly items-center gap-8 md:gap-5">
@@ -75,9 +95,21 @@ const GamePage = () => {
                   alt="genre"
                 />
               </div>
-              <div className="rounded-md w-full h-full bg-blue p-2 flex justify-center">
+              <div
+                onClick={() => handleCopy()}
+                className="rounded-md w-full h-full bg-blue p-2 flex justify-center"
+              >
                 Share
               </div>
+              {copy && (
+                <div
+                  className={` mt-2 animate-fade-down ${
+                    !copy ? "animate-fade-up duration-500" : "animate-fade-down"
+                  } w-[150px] h-fukk bg-white rounded-lg text-black p-2 z-99`}
+                >
+                  <p>Text copied!</p>
+                </div>
+              )}
             </div>
             {game.screenshots.length ? (
               <Carousel screenshots={game.screenshots} />
@@ -148,9 +180,21 @@ const GamePage = () => {
                 alt="genre"
               />
             </div>
-            <div className="rounded-md w-full h-full bg-blue px-2 py-2 flex justify-center">
+            <div
+              onClick={() => handleCopy()}
+              className="cursor-pointer rounded-md w-full h-full bg-blue px-2 py-2 flex justify-center"
+            >
               Share
             </div>
+            {copy && (
+              <div
+                className={` animate-fade-down ${
+                  !copy ? "animate-fade-up duration-500" : "animate-fade-down"
+                } w-auto h-full bg-white rounded-lg text-black p-2`}
+              >
+                <p>Text copied!</p>
+              </div>
+            )}
           </article>
         </div>
       ) : (

@@ -28,7 +28,7 @@ const FreeGames = () => {
   }, [fetchGames, setGames]);
 
   useEffect(() => {
-    widthRef.current = window.innerWidth < 1706 ? 6 : 8;
+    widthRef.current = window.innerWidth < 1706 ? 3 : 8;
 
     const handleScroll = () => {
       gameRefs.current.forEach((ref, index) => {

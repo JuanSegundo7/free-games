@@ -50,7 +50,7 @@ const Games: React.FC = () => {
   };
 
   useEffect(() => {
-    widthRef.current = window.innerWidth < 1706 ? 6 : 8;
+    widthRef.current = window.innerWidth < 1706 ? 3 : 8;
 
     const handleScroll = () => {
       gameRefs.current.forEach((ref, index) => {
@@ -126,7 +126,7 @@ const Games: React.FC = () => {
               onClick={() => handleClick(game.id)}
               key={game.id}
               className={`w-full h-full max-w-[300px] xl:max-w-[340px] ${
-                index >= widthRef.current ? "opacity-0" : ""
+                index >= 8 ? "opacity-0" : ""
               }`}
             >
               <Game
