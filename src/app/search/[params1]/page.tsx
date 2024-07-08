@@ -50,7 +50,7 @@ const Games: React.FC = () => {
   };
 
   useEffect(() => {
-    widthRef.current = window.innerWidth < 1706 ? 3 : 4;
+    widthRef.current = window.innerWidth < 1706 ? 6 : 8;
 
     const handleScroll = () => {
       gameRefs.current.forEach((ref, index) => {
