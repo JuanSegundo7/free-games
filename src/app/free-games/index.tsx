@@ -16,6 +16,7 @@ const FreeGames = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 20;
   const gameRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const widthRef = useRef<number>(0);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -25,6 +26,27 @@ const FreeGames = () => {
       setGames(null);
     };
   }, [fetchGames, setGames]);
+
+  useEffect(() => {
+    widthRef.current = window.innerWidth < 1706 ? 3 : 4;
+
+    const handleScroll = () => {
+      gameRefs.current.forEach((ref, index) => {
+        if (ref && index >= widthRef.current) {
+          const top = ref.getBoundingClientRect().top;
+          const isVisible = top >= 0 && top <= window.innerHeight - 350;
+          if (isVisible) {
+            ref.classList.add("animate-fade-up");
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleClick = (id: string) => {
     router.push(`/game/${id}`);
@@ -40,27 +62,6 @@ const FreeGames = () => {
   const totalPages = games ? Math.ceil(games.length / pageSize) : 0;
   const currentGames = games ? paginate(games, pageSize, currentPage) : [];
   const pageNumbers = getPageNumbers(totalPages, currentPage);
-
-  const width = window.innerWidth < 1706 ? 3 : 4;
-
-  const handleScroll = () => {
-    gameRefs.current.forEach((ref, index) => {
-      if (ref && index >= width) {
-        const top = ref.getBoundingClientRect().top;
-        const isVisible = top >= 0 && top <= window.innerHeight - 350;
-        if (isVisible) {
-          ref.classList.add("animate-fade-up");
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <section className="w-full h-full flex flex-wrap justify-center items-center gap-5">
@@ -82,7 +83,7 @@ const FreeGames = () => {
             onClick={() => handleClick(game.id)}
             key={game.id}
             className={`w-full max-w-[300px] xl:max-w-[340px] ${
-              index >= width ? "opacity-0" : ""
+              index >= widthRef.current ? "opacity-0" : ""
             }`}
           >
             <Game
