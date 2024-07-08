@@ -31,3 +31,30 @@ body {
     text-wrap: balance;
   }
 }
+
+@media (width> 768px) {
+  .container-calc {
+    min-width: calc(100% - 288px);
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-calc {
+    min-width: calc(100% - 288px);
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .container-calc {
+    min-width: calc(100% - 280px);
+    width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-calc {
+    width: calc(100% - 384px);
+  }
+}
