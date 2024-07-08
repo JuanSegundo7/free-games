@@ -7,7 +7,7 @@ const options = {
   method: "GET",
   url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
   headers: {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY,
+    "X-RapidAPI-Key": baseUrl,
     "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
   },
 };
